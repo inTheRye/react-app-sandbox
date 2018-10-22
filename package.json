@@ -9,7 +9,9 @@
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
-    "react-router-dom": "latest"
+    "react-router-dom": "latest",
+    "cesium": "latest",
+    "cesium-react": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
