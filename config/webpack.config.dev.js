@@ -13,6 +13,8 @@ const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -94,6 +96,9 @@ module.exports = {
     // initialization, it doesn't blow up the WebpackDevServer client, and
     // changing JS code would still trigger a refresh.
   ],
+  externals: {
+    cesium: "Cesium"
+  },
   output: {
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
@@ -366,6 +371,25 @@ module.exports = {
     new ManifestPlugin({
       fileName: 'asset-manifest.json',
       publicPath: publicPath,
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: `node_modules/cesium/Build/Cesium${"Unminified"}`,
+        to: "cesium"
+      }
+    ]),
+    new HtmlWebpackIncludeAssetsPlugin({
+      append: false,
+      assets: [
+        "cesium/Widgets/widgets.css",
+        "cesium/Cesium.js"
+      ]
+    }),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify("development"),
+        CESIUM_BASE_URL: JSON.stringify("/cesium")
+      }
     }),
   ],
 
