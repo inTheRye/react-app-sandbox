@@ -4,6 +4,7 @@ import withRoot from './withRoot';
 import PropTypes from 'prop-types';
 import Index from './pages/index';
 import Home from './pages/home';
+import Chart from './pages/chart';
 import { Route } from 'react-router-dom';
 import MenuAppBar from './components/MenuAppBar'
 
@@ -22,6 +23,7 @@ class App extends React.Component {
           <MenuAppBar />
           <Route exact path='/' component={Index} />
           <Route path='/home' component={Home} />
+          <Route path='/chart' component={Chart} />
       </div>
     );
   }
